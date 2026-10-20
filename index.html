@@ -171,6 +171,63 @@
       gap: 1.8rem;
     }
 
+    .grid.technology-grid {
+      display: block;
+    }
+
+    .technology-faculty-section {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+      padding: 1.8rem;
+    }
+
+    .technology-faculty-title {
+      color: var(--text-main);
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .technology-program-buttons {
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    }
+
+    .technology-program-button {
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      font-size: 0.95rem;
+      font-weight: 600;
+      justify-content: space-between;
+      min-height: 3.5rem;
+      padding: 0.85rem 1rem;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .technology-program-button::after {
+      color: var(--primary);
+      content: '→';
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      margin-left: 0.75rem;
+    }
+
+    .technology-program-button:hover,
+    .technology-program-button:focus-visible {
+      background: #fdf2f8;
+      border-color: var(--primary);
+      outline: none;
+    }
+
     /* Card Item (Cubículo) */
     .card {
       background: var(--card-bg);
@@ -448,7 +505,7 @@
   <div class="controls-container">
     <div class="catalog-tabs" role="tablist" aria-label="Tipo de programa">
       <button class="catalog-tab active" id="undergraduateTab" type="button" role="tab" aria-selected="true" onclick="switchCatalog('pregrados')">Pregrados profesionales</button>
-      <button class="catalog-tab" id="technologyTab" type="button" role="tab" aria-selected="false" onclick="switchCatalog('tecnologias')">Programas tecnológicos</button>
+      <button class="catalog-tab" id="technologyTab" type="button" role="tab" aria-selected="false" onclick="switchCatalog('tecnologias')">Tecnologías por facultad</button>
     </div>
 
     <div class="search-box">
@@ -1057,7 +1114,7 @@
       document.getElementById('undergraduateTab').setAttribute('aria-selected', String(!isTechnology));
       document.getElementById('technologyTab').classList.toggle('active', isTechnology);
       document.getElementById('technologyTab').setAttribute('aria-selected', String(isTechnology));
-      document.getElementById('catalogHeading').innerText = isTechnology ? 'Programas tecnológicos' : 'Pregrados profesionales';
+      document.getElementById('catalogHeading').innerText = isTechnology ? 'Tecnologías por facultad' : 'Pregrados profesionales';
 
       const availableFaculties = new Set(getActivePrograms().map(program => program.faculty));
       document.querySelectorAll('#facultyFilters .pill[data-faculty]').forEach(pill => {
@@ -1072,6 +1129,7 @@
     function renderCards(programs) {
       const grid = document.getElementById('programsGrid');
       grid.innerHTML = '';
+      grid.classList.toggle('technology-grid', currentCatalog === 'tecnologias');
 
       if (programs.length === 0) {
         grid.innerHTML = `
@@ -1080,6 +1138,42 @@
             <p style="color: #94a3b8;">Intenta con otros términos de búsqueda o cambia el filtro de facultad.</p>
           </div>
         `;
+        return;
+      }
+
+      if (currentCatalog === 'tecnologias') {
+        const programsByFaculty = new Map();
+        programs.forEach(program => {
+          if (!programsByFaculty.has(program.faculty)) {
+            programsByFaculty.set(program.faculty, []);
+          }
+          programsByFaculty.get(program.faculty).push(program);
+        });
+
+        programsByFaculty.forEach((facultyPrograms, faculty) => {
+          const section = document.createElement('section');
+          section.className = 'technology-faculty-section';
+
+          const heading = document.createElement('h3');
+          heading.className = 'technology-faculty-title';
+          heading.textContent = `Facultad de ${faculty}`;
+          section.appendChild(heading);
+
+          const buttons = document.createElement('div');
+          buttons.className = 'technology-program-buttons';
+          facultyPrograms.forEach(program => {
+            const button = document.createElement('button');
+            button.className = 'technology-program-button';
+            button.type = 'button';
+            button.textContent = program.title;
+            button.setAttribute('aria-label', `Ver información de ${program.title}`);
+            button.addEventListener('click', () => openDetail(program.id));
+            buttons.appendChild(button);
+          });
+
+          section.appendChild(buttons);
+          grid.appendChild(section);
+        });
         return;
       }
 
