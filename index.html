@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oferta Académica de Pregrados - USB Bogotá</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #c026d3;
+      --primary-dark: #86198f;
+      --brand-orange: #f97316;
+      --brand-dark: #1e293b;
+      --bg-light: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.12), 0 10px 15px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #31103f 50%, #831843 100%);
+      color: white;
+      padding: 3rem 1.5rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .badge-top {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Controls: Search & Filters */
+    .controls-container {
+      max-width: 1200px;
+      margin: -2rem auto 2.5rem;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .search-box {
+      background: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border: 1px solid var(--border-color);
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .pill {
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-muted);
+    }
+
+    .pill:hover, .pill.active {
+      background: var(--brand-dark);
+      color: white;
+      border-color: var(--brand-dark);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* Grid layout for cards / cubicles */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* Card Item (Cubículo) */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: #cbd5e1;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-faculty {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tag {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 0.3rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .card-price {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 1rem;
+    }
+
+    .card-price span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .card-summary {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .card-footer svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover .card-footer svg {
+      transform: translateX(4px);
+    }
+
+    /* Detail Page View (Modal / View Switch) */
+    .detail-view {
+      display: none;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-hover);
+      border: 1px solid var(--border-color);
+      padding: 2.5rem;
+      margin-top: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      margin-bottom: 2rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .detail-header {
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-faculty {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .detail-grid-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .info-item h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-item p {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .detail-section {
+      margin-bottom: 2rem;
+    }
+
+    .detail-section h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .detail-section h3::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .detail-section p, .detail-section ul {
+      color: #334155;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .detail-section ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+    }
+
+    .detail-section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-box {
+      background: #fdf2f8;
+      border-left: 4px solid var(--primary);
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin-top: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: #0f172a;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.8rem; }
+      .grid { grid-template-columns: 1fr; }
+      .detail-title { font-size: 1.6rem; }
+      .detail-view { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <span class="badge-top">Universidad de San Buenaventura - Sede Bogotá</span>
+      <h1>Guía Completa de Pregrados</h1>
+      <p>Explora la oferta académica oficial, precios de matrícula, semestres, modalidades, enfoques profesionales y opciones de práctica profesional.</p>
+    </div>
+  </header>
+
+  <div class="controls-container">
+    <div class="search-box">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      <input type="text" id="searchInput" placeholder="Buscar por nombre, palabra clave o área (ej. Inteligencia Artificial, Salud, Finanzas)..." onkeyup="filterPrograms()">
+    </div>
+
+    <div class="filter-pills" id="facultyFilters">
+      <button class="pill active" data-faculty="todas" onclick="filterFaculty('todas')">Todas las Facultades</button>
+      <button class="pill" data-faculty="Ingeniería" onclick="filterFaculty('Ingeniería')">Ingeniería</button>
+      <button class="pill" data-faculty="Psicología" onclick="filterFaculty('Psicología')">Psicología</button>
+      <button class="pill" data-faculty="Ciencias Económicas y Administrativas" onclick="filterFaculty('Ciencias Económicas y Administrativas')">Ciencias Económicas</button>
+      <button class="pill" data-faculty="Ciencias Jurídicas y Políticas" onclick="filterFaculty('Ciencias Jurídicas y Políticas')">Jurídicas y Políticas</button>
+      <button class="pill" data-faculty="Humanidades y Ciencias de la Educación" onclick="filterFaculty('Humanidades y Ciencias de la Educación')">Humanidades y Educación</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- Contenedor Principal con Tarjetas / Cubículos -->
+    <div class="grid" id="programsGrid">
+      <!-- Generado dinámicamente con JavaScript -->
+    </div>
+
+    <!-- Vista Detallada de Un Programa -->
+    <div class="detail-view" id="detailView">
+      <button class="btn-back" onclick="closeDetail()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Volver a todos los programas
+      </button>
+
+      <div class="detail-header">
+        <div class="detail-faculty" id="detFaculty">Facultad</div>
+        <h2 class="detail-title" id="detTitle">Nombre del Programa</h2>
+        <p style="color: #64748b; font-size: 1.05rem;" id="detSub">Título otorgado y SNIES</p>
+      </div>
+
+      <div class="detail-grid-info">
+        <div class="info-item">
+          <h4>Precio por Semestre</h4>
+          <p id="detPrice">$0 COP</p>
+        </div>
+        <div class="info-item">
+          <h4>Duración Estimada</h4>
+          <p id="detDuration">0 Semestres</p>
+        </div>
+        <div class="info-item">
+          <h4>Modalidad</h4>
+          <p id="detModality">Presencial</p>
+        </div>
+        <div class="info-item">
+          <h4>Título Otorgado</h4>
+          <p id="detDegree">Profesional</p>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Enfoque Principal y Perfil Profesional</h3>
+        <p id="detOverview"></p>
+      </div>
+
+      <div class="detail-section">
+        <h3>Competencias Clave y Campos de Acción</h3>
+        <ul id="detCompetencies"></ul>
+      </div>
+
+      <div class="detail-section">
+        <h3>Prácticas Profesionales y Escenarios</h3>
+        <div class="highlight-box">
+          <p id="detPractices"></p>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Ventajas e Internacionalización</h3>
+        <ul id="detAdvantages"></ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Universidad de San Buenaventura Bogotá. Información compilada a partir de resoluciones de rectoría y portal institucional.</p>
+  </footer>
+
+  <script>
+    const programData = [
+      {
+        id: "psicologia",
+        title: "Psicología",
+        faculty: "Psicología",
+        price: "$7.638.000",
+        semesters: "9 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Psicólogo(a)",
+        snies: "SNIES 1373",
+        summary: "Formación integral en psicología clínica, organizacional, educativa, neuropsicología y social comunitaria con sólida base humanista-franciscana.",
+        overview: "El programa de Psicología de la USB Bogotá forma profesionales capaces de evaluar, diagnosticar e intervenir en procesos psicológicos individuales, grupales y comunitarios. Combina fundamentación científica rigorosa con un enfoque profundamente ético y social.",
+        competencies: [
+          "Evaluación y diagnóstico psicológico en contextos clínicos, hospitalarios y privados.",
+          "Gestión de clima organizacional, selección de talento y bienestar laboral en empresas.",
+          "Intervención psicoeducativa en comunidades escolares y atención a necesidades de aprendizaje.",
+          "Desarrollo de proyectos comunitarios y atención a poblaciones vulnerables.",
+          "Aplicación de herramientas en evaluación neuropsicológica y salud mental."
+        ],
+        practices: "Las prácticas profesionales inician a partir del 7.º semestre (mínimo 480 horas). Se desarrollan en el Centro de Atención Psicológica (CAP) propio de la universidad, así como en clínicas, hospitales, colegios públicos y privados, e instituciones del sector social e industrial en convenio.",
+        advantages: [
+          "Acceso directo a prácticas en el Centro de Atención Psicológica (CAP) propio.",
+          "Posibilidad de continuar estudios con las Maestrías en Psicología Clínica y Neuropsicología de la facultad.",
+          "Formación en investigación aplicada a través de grupos categorizados ante MinCiencias."
+        ]
+      },
+      {
+        id: "ing-sistemas",
+        title: "Ingeniería de Sistemas",
+        faculty: "Ingeniería",
+        price: "$6.728.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Ingeniero(a) de Sistemas",
+        snies: "Registro Calificado Vigente",
+        summary: "Enfocado en arquitectura de software, ciberseguridad, inteligencia artificial, analítica de datos y cloud computing.",
+        overview: "Forma ingenieros líderes en la transformación digital capaces de diseñar, construir y administrar sistemas complejos de software, infraestructura en la nube y modelos de inteligencia artificial aplicados a la resolución de problemas globales.",
+        competencies: [
+          "Diseño y arquitectura de aplicaciones web, móviles y empresariales.",
+          "Implementación de modelos de Machine Learning y Ciencia de Datos.",
+          "Gestión de la ciberseguridad, auditoría de redes y gobierno de TI.",
+          "Administración de infraestructura Cloud (AWS, Azure, Google Cloud).",
+          "Dirección de proyectos tecnológicos ágiles (Scrum, DevOps)."
+        ],
+        practices: "Pasantías en empresas tecnológicas del sector real, multinacionales de desarrollo de software, startups de base tecnológica o mediante proyectos de innovación e investigación aplicada.",
+        advantages: [
+          "Plan de estudios actualizado con énfasis en IA y Ciberseguridad.",
+          "Laboratorios de computación especializada y redes de alto rendimiento.",
+          "Articulación directa con posgrados como la Maestría en Internet de las Cosas (IoT)."
+        ]
+      },
+      {
+        id: "ing-electronica",
+        title: "Ingeniería Electrónica",
+        faculty: "Ingeniería",
+        price: "$6.758.000",
+        semesters: "10 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Ingeniero(a) Electrónico(a)",
+        snies: "Registro Calificado Vigente",
+        summary: "Especializado en automatización industrial, sistemas embebidos, procesamiento de señales, telecomunicaciones e IoT.",
+        overview: "El Ingeniero Electrónico de la USB Bogotá domina la integración del hardware y software para automatizar procesos, diseñar sistemas de comunicaciones avanzados y crear soluciones electrónicas sostenibles e inteligentes.",
+        competencies: [
+          "Diseño e implementación de sistemas de control industrial y automatización.",
+          "Programación de microcontroladores y sistemas embebidos.",
+          "Gestión y optimización de redes de telecomunicaciones.",
+          "Desarrollo de dispositivos IoT (Internet de las Cosas) para Smart Cities e Industria 4.0.",
+          "Mantenimiento de equipamiento electrónico de alta precisión."
+        ],
+        practices: "Desarrollo de prácticas profesionales en plantas industriales, empresas del sector de las telecomunicaciones, integradoras de tecnología y laboratorios de investigación robótica.",
+        advantages: [
+          "Laboratorios especializados en microelectrónica, automatización y comunicaciones.",
+          "Participación en semilleros de investigación en robótica y domótica.",
+          "Ruta de doble titulación y movilidad académica internacional."
+        ]
+      },
+      {
+        id: "ing-aeronautica",
+        title: "Ingeniería Aeronáutica",
+        faculty: "Ingeniería",
+        price: "$11.051.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Mixta",
+        degree: "Ingeniero(a) Aeronáutico(a)",
+        snies: "Programa de Alta Especialización",
+        summary: "Diseño aerodinámico, mantenimiento MRO, estructuras de vuelo, sistemas de propulsión y certificación de aviación.",
+        overview: "Uno de los programas insigne en Colombia para la industria aeroespacial. Forma ingenieros expertos en la operación, diseño, fabricación, mantenimiento y regulación de aeronaves comerciales, militares y sistemas no tripulados (drones).",
+        competencies: [
+          "Gestión y supervisión de talleres de MRO (Mantenimiento, Reparación y Operación).",
+          "Análisis aerodinámico y simulación computacional de fluidos (CFD).",
+          "Diseño estructural y verificación de materiales aeronáuticos.",
+          "Certificación y auditoría de seguridad operacional bajo normativas de la Aerocivil y FAA.",
+          "Gestión de flotas aéreas e ingeniería de mantenimiento en aerolíneas."
+        ],
+        practices: "Prácticas en aerolíneas líderes (Avianca, LATAM, Satena), centros de mantenimiento MRO, la Aeronáutica Civil de Colombia (Aerocivil) y empresas de logística aeroespacial.",
+        advantages: [
+          "Laboratorios de simulación aerodinámica, túnel de viento y materiales aeronáuticos.",
+          "Convenios institucionales con el sector aéreo colombiano e internacional.",
+          "Alto índice de empleabilidad en el sector aeroportuario y de aviación."
+        ]
+      },
+      {
+        id: "ing-mecatronica",
+        title: "Ingeniería Mecatrónica",
+        faculty: "Ingeniería",
+        price: "$8.698.000",
+        semesters: "10 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Ingeniero(a) Mecatrónico(a)",
+        snies: "Registro Calificado Vigente",
+        summary: "Sinergia entre mecánica, electrónica, control y software para crear robótica avanzada e Industria 4.0.",
+        overview: "Combina de forma armónica la mecánica, la electrónica y la informática para diseñar productos y procesos industriales inteligentes, robóticos y automatizados.",
+        competencies: [
+          "Diseño de brazos robóticos y celdas de manufactura automatizada.",
+          "Integración de sensores, actuadores y controladores lógicos (PLC).",
+          "Programación de algoritmos de control inteligente e IA aplicada a máquinas.",
+          "Modelado 3D de elementos mecánicos y diseño asistido por computador (CAD/CAM).",
+          "Optimización de líneas de ensamble y procesos fabriles."
+        ],
+        practices: "Prácticas profesionales en empresas del sector automotriz, plantas embotelladoras, manufactura avanzada y automatización fabril.",
+        advantages: [
+          "Laboratorio de Robótica e Industria 4.0 equipado con brazos manipuladores y sistemas neumáticos.",
+          "Enfoque multidisciplinar que amplía las oportunidades de empleo.",
+          "Proyectos de grado orientados a la creación de prototipos funcionales patentables."
+        ]
+      },
+      {
+        id: "ing-multimedia",
+        title: "Ingeniería Multimedia",
+        faculty: "Ingeniería",
+        price: "$8.337.000",
+        semesters: "10 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Ingeniero(a) Multimedia",
+        snies: "SNIES 103343",
+        summary: "Desarrollo de videojuegos, animación 2D/3D, realidad virtual/aumentada, diseño UX/UI y contenido digital interactivo.",
+        overview: "El Ingeniero Multimedia bonaventuriano crea soluciones tecnológicas innovadoras integrando programación, arte digital y narrativa interactiva para industrias creativas, entretenimiento, educación y simulación.",
+        competencies: [
+          "Desarrollo de videojuegos para consolas, PC y dispositivos móviles.",
+          "Diseño y modelado 3D, animación y renderizado de alta fidelidad.",
+          "Creación de experiencias inmersivas en Realidad Virtual (VR) y Aumentada (AR).",
+          "Diseño de interfaces y experiencia de usuario (UX/UI) para plataformas digitales.",
+          "Dirección técnica de producciones transmedia y comunicación interactiva."
+        ],
+        practices: "Pasantías en estudios de desarrollo de videojuegos, agencias interactivas, productoras audiovisuales, canales de televisión y laboratorios de simulación.",
+        advantages: [
+          "Salas Mac especializadas, laboratorios de captura de movimiento y VR.",
+          "Participación en festivales de videojuegos y animación a nivel nacional e internacional.",
+          "Fuerte componente de emprendimiento en industrias culturales y creativas."
+        ]
+      },
+      {
+        id: "ing-sonido",
+        title: "Ingeniería de Sonido",
+        faculty: "Ingeniería",
+        price: "$10.300.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Ingeniero(a) de Sonido",
+        snies: "Programa Destacado en Colombia",
+        summary: "Acústica arquitectónica, producción musical, diseño sonoro para cine/videojuegos y sonido en vivo.",
+        overview: "Programa pionero y de altísimo reconocimiento. Combina el rigor técnico de las ondas sonoras y la física del sonido con la sensibilidad artística en la producción y el control acústico.",
+        competencies: [
+          "Diseño, grabación, mezcla y masterización de música en estudios profesionales.",
+          "Diseño acústico y aislamiento para auditorios, salas de grabación y recintos.",
+          "Ingeniería de sonido en vivo para conciertos y eventos multitudinarios.",
+          "Foley, efectos de audio y diseño sonoro para cine, televisión y videojuegos.",
+          "Medición y control de contaminación auditiva y ruido ambiental."
+        ],
+        practices: "Prácticas en estudios de grabación comerciales, empresas de sonido en vivo, firmas consultoras de diseño acústico y productoras de cine y TV.",
+        advantages: [
+          "Estudios de grabación profesionales insonorizados e insonorización de nivel comercial.",
+          "Consolas analógicas y digitales de última generación.",
+          "Red de egresados altamente posicionada en la industria musical e ingeniería acústica."
+        ]
+      },
+      {
+        id: "admin-empresas",
+        title: "Administración de Empresas",
+        faculty: "Ciencias Económicas y Administrativas",
+        price: "$6.223.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Tarde, noche y sábado (Flexible)",
+        degree: "Administrador(a) de Empresas",
+        snies: "SNIES 53056",
+        summary: "Dirección estratégica, gestión de proyectos, modelos de negocio sostenibles, finanzas y emprendimiento.",
+        overview: "Forma gerentes líderes con visión global, capacidad analítica y pensamiento ético para dirigir organizaciones públicas o privadas o crear negocios de impacto sostenible.",
+        competencies: [
+          "Planeación estratégica y prospectiva de negocios.",
+          "Análisis financiero, evaluación de proyectos y presupuestación corporativa.",
+          "Liderazgo de equipos de alto desempeño y gestión del talento humano.",
+          "Estrategias de mercadeo tradicional y marketing digital.",
+          "Modelación y ejecución de planes de emprendimiento e innovación."
+        ],
+        practices: "Realización de práctica profesional en empresas del sector real, entidades financieras, programas de consultoría empresarial o mediante la consolidación del plan de empresa propio.",
+        advantages: [
+          "Horarios flexibles ideales para estudiar y trabajar.",
+          "Posibilidad de cursar créditos de posgrado (MBA) desde el pregrado.",
+          "Intercambios académicos internacionales con universidades aliadas."
+        ]
+      },
+      {
+        id: "contaduria",
+        title: "Contaduría Pública",
+        faculty: "Ciencias Económicas y Administrativas",
+        price: "$5.816.000",
+        semesters: "9 Semestres",
+        modality: "Presencial",
+        degree: "Contador(a) Público(a)",
+        snies: "Registro Calificado Vigente",
+        summary: "NIIF, auditoría financiera y forense, revisoría fiscal, tributaria y aseguramiento de la información.",
+        overview: "El Contador Público bonaventuriano es un garante de la confianza pública y la transparencia financiera, experto en normatividad internacional (NIIF) e inteligencia de negocios contable.",
+        competencies: [
+          "Dictamen de estados financieros bajo Normas Internacionales (NIIF).",
+          "Auditoría interna, externa y revisoría fiscal en organizaciones.",
+          "Planeación tributaria y asesoría en impuestos corporativos.",
+          "Implementación de sistemas de control de gestión y costos.",
+          "Auditoría forense y prevención del riesgo de lavado de activos."
+        ],
+        practices: "Pasantías en reconocidas firmas de auditoría internacionales y nacionales, áreas contables y de contraloría corporativa.",
+        advantages: [
+          "Formación alineada a estándares globales NIIF / NIAS.",
+          "Herramientas informáticas contables de vanguardia.",
+          "Acompañamiento especializado para la obtención de la tarjeta profesional."
+        ]
+      },
+      {
+        id: "derecho",
+        title: "Derecho",
+        faculty: "Ciencias Jurídicas y Políticas",
+        price: "$7.075.000",
+        semesters: "9 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Abogado(a)",
+        snies: "SNIES 53397",
+        summary: "Litigio procesal, derecho público/privado, resolución de conflictos, técnica probatoria y judicatura.",
+        overview: "Forma juristas integrales con sólidos conocimientos teóricos y prácticos en las diversas ramas del derecho, comprometidos con la justicia social, la defensa de los derechos humanos y la ética profesional.",
+        competencies: [
+          "Litigio procesal ante estrados judiciales en materia penal, civil, laboral y administrativa.",
+          "Asesoría y consultoría jurídica para empresas públicas y privadas.",
+          "Mecanismos alternativos de solución de conflictos (Conciliación y Arbitraje).",
+          "Análisis constitucional y defensa de los Derechos Humanos.",
+          "Formulación de contratos corporativos y gestión del derecho privado."
+        ],
+        practices: "Práctica obligatoria mediante el Consultorio Jurídico y Centro de Conciliación de la USB Bogotá, laboratorios de simulación de juicios orales o judicatura en despachos judiciales y fiscalías.",
+        advantages: [
+          "Consultorio Jurídico acreditado e integrado a la comunidad.",
+          "Salas de audiencias de juzgados simulados para práctica oratoria.",
+          "Opciones de doble programa con Ciencia Política y Relaciones Internacionales."
+        ]
+      },
+      {
+        id: "ciencia-politica",
+        title: "Ciencia Política",
+        faculty: "Ciencias Jurídicas y Políticas",
+        price: "$7.075.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Politólogo(a)",
+        snies: "SNIES 53058",
+        summary: "Formulación de políticas públicas, análisis electoral, gobernanza, gestión pública y relaciones institucionales.",
+        overview: "Analiza y transforma los fenómenos políticos, el poder, el Estado y las políticas públicas con el fin de fortalecer la democracia y promover el desarrollo territorial incluyente.",
+        competencies: [
+          "Diseño, implementación y evaluación de políticas públicas.",
+          "Consultoría en estrategias electorales, marketing político y campañas.",
+          "Asesoría legislativa en el Congreso de la República, concejos y asambleas.",
+          "Análisis de riesgos políticos para inversión y proyectos corporativos.",
+          "Mediación y gestión de conflictos sociales y comunitarios."
+        ],
+        practices: "Mínimo 480 horas de práctica en el 7.º u 8.º semestre en entidades públicas (Congreso, Ministerios, Alcaldías), partidos políticos, ONG u organismos multilaterales.",
+        advantages: [
+          "Núcleo básico compartido que facilita el doble programa con Derecho o Relaciones Internacionales.",
+          "Red de semilleros de investigación en temas de paz, territorio y gobernanza.",
+          "Cerca de 125 profesionales destacados formados en la sede."
+        ]
+      },
+      {
+        id: "relaciones-internacionales",
+        title: "Relaciones Internacionales",
+        faculty: "Ciencias Jurídicas y Políticas",
+        price: "$7.075.000",
+        semesters: "9 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Profesional en Relaciones Internacionales",
+        snies: "Registro Calificado Vigente",
+        summary: "Diplomacia, geopolítica, cooperación internacional, comercio exterior y organismos multilaterales.",
+        overview: "Forma expertos en el escenario global capaces de comprender la interacción entre Estados, organizaciones internacionales, ONGs y empresas multinacionales para impulsar la cooperación y los negocios internacionales.",
+        competencies: [
+          "Análisis de coyuntura geopolítica y relaciones diplomáticas.",
+          "Gestión y consecución de fondos en proyectos de Cooperación Internacional.",
+          "Asesoría en comercio exterior y negocios internacionales.",
+          "Representación y negociación en foros multilaterales.",
+          "Diseño de estrategias de internacionalización para entes públicos y privados."
+        ],
+        practices: "Pasantías profesionales en el Ministerio de Relaciones Exteriores (Cancillería), embajadas, agencias de cooperación (APC Colombia), ONGs internacionales y multinacionales.",
+        advantages: [
+          "Formación multidisciplinar en diplomacia, economía internacional y derecho internacional.",
+          "Intercambios y modelos de simulación de la ONU (MUN).",
+          "Posibilidad de titulación conjunta o doble programa."
+        ]
+      },
+      {
+        id: "lic-educacion-infantil",
+        title: "Licenciatura en Educación Infantil",
+        faculty: "Humanidades y Ciencias de la Educación",
+        price: "$4.267.000",
+        semesters: "8 Semestres",
+        modality: "Presencial",
+        degree: "Licenciado(a) en Educación Infantil",
+        snies: "Registro Calificado Vigente",
+        summary: "Pedagogía de la primera infancia, desarrollo infantil, inclusión educativa, lenguaje y expresión artística.",
+        overview: "Forma educadores apasionados y capacitados para liderar los procesos pedagógicos, de cuidado y de desarrollo integral en la primera infancia con enfoques inclusivos e innovadores.",
+        competencies: [
+          "Diseño e implementación de currículos y estrategias didácticas para la primera infancia.",
+          "Atención a la diversidad e inclusión de niños con necesidades educativas especiales.",
+          "Liderazgo de centros educativos y jardines infantiles.",
+          "Acompañamiento a familias en pautas de crianza y desarrollo socioemocional.",
+          "Investigación pedagógica aplicada al aprendizaje temprano."
+        ],
+        practices: "Prácticas pedagógicas continuas desde los primeros semestres en jardines infantiles del ICBF, instituciones educativas públicas y privadas, y proyectos sociales.",
+        advantages: [
+          "Uso de aulas especializadas en expresión artística, juego y literatura infantil.",
+          "Enfoque práctico con alto compromiso social.",
+          "Convenios con redes de educación inicial en Bogotá y la región."
+        ]
+      },
+      {
+        id: "lic-filosofia",
+        title: "Licenciatura en Filosofía",
+        faculty: "Humanidades y Ciencias de la Educación",
+        price: "$4.064.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Licenciado(a) en Filosofía",
+        snies: "SNIES 1371 - Acreditación de Alta Calidad",
+        summary: "Enseñanza de la filosofía, bioética, pensamiento crítico, epistemología y gestión educativa.",
+        overview: "Programa Acreditado en Alta Calidad. Prepara docentes e investigadores con capacidad reflexiva para promover el pensamiento crítico, la ética y la comprensión de los retos contemporáneos.",
+        competencies: [
+          "Docencia de la filosofía y ciencias humanas en educación media y superior.",
+          "Desarrollo de proyectos de pensamiento crítico y bioética para la comunidad.",
+          "Asesoría editorial y redacción de textos académicos y filosóficos.",
+          "Gestión de proyectos culturales y de desarrollo humano.",
+          "Investigación en filosofía de la educación y humanismo."
+        ],
+        practices: "Prácticas docentes supervisadas desde 2.º semestre en instituciones de educación básica, media y proyectos de educación no formal.",
+        advantages: [
+          "Acreditación de Alta Calidad por 7 años concedida por el Ministerio de Educación.",
+          "Oportunidades de movilidad internacional (Programa ROMA).",
+          "Publicación de trabajos en revistas de investigación filosófica."
+        ]
+      },
+      {
+        id: "lic-teologia",
+        title: "Licenciatura en Teología",
+        faculty: "Humanidades y Ciencias de la Educación",
+        price: "$4.064.000",
+        semesters: "8 Semestres",
+        modality: "Presencial / Diurna",
+        degree: "Licenciado(a) en Teología",
+        snies: "Registro Calificado Vigente",
+        summary: "Teología sistemática, hermenéutica bíblica, pensamiento franciscano, ética y acción pastoral.",
+        overview: "Ofrece una formación teológica rigurosa, crítica e interdisciplinar en diálogo con el mundo actual, la cultura contemporánea y las demandas de justicia social.",
+        competencies: [
+          "Docencia en las áreas de educación religiosa, ética y valores morales.",
+          "Diseño y liderazgo de programas socio-pastorales e interreligiosos.",
+          "Investigación bíblica y teológica en contexto.",
+          "Asesoría ética en instituciones hospitalarias, educativas y sociales.",
+          "Gestión de comunidades y proyectos de construcción de paz."
+        ],
+        practices: "Prácticas en instituciones educativas, organizaciones no gubernamentales, comunidades parroquiales y centros de acompañamiento social.",
+        advantages: [
+          "Sólida tradición franciscana de diálogo y humanismo.",
+          "Enfoque en ecumenismo y responsabilidad social.",
+          "Interacción con redes teológicas de América Latina."
+        ]
+      },
+      {
+        id: "prof-lengua-inglesa",
+        title: "Profesional en Lengua Inglesa",
+        faculty: "Humanidades y Ciencias de la Educación",
+        price: "$4.955.000",
+        semesters: "8 Semestres",
+        modality: "Virtual / Horarios flexibles",
+        degree: "Profesional en Lengua Inglesa",
+        snies: "Modalidad 100% Virtual",
+        summary: "Dominio avanzado de inglés, traducción, interpretación, lingüística aplicada y enseñanza.",
+        overview: "Diseñado para formar profesionales bilingües de alto rendimiento capaces de desempeñarse con excelencia en entornos multiculturales, traducción, interpretación y enseñanza del idioma.",
+        competencies: [
+          "Comunicación efectiva en nivel avanzado (C1/C2) según el Marco Común Europeo.",
+          "Traducción e interpretación de textos comerciales, técnicos y literarios.",
+          "Enseñanza del idioma inglés mediante entornos virtuales e interactivos.",
+          "Gestión de la comunicación corporativa bilingüe para multinacionales.",
+          "Diseño de contenidos pedagógicos digitales para el aprendizaje de idiomas."
+        ],
+        practices: "Prácticas aplicadas en empresas de servicios bilingües, plataformas de e-learning, centros de lenguas y agencias de traducción.",
+        advantages: [
+          "Modalidad 100% virtual con máxima flexibilidad de horarios.",
+          "Acompañamiento del Centro Bonaventuriano de Lenguas y Culturas (CBLC).",
+          "Plataforma tecnológica interactiva de última generación."
+        ]
+      }
+    ];
+
+    let currentFaculty = 'todas';
+
+    function renderCards(programs) {
+      const grid = document.getElementById('programsGrid');
+      grid.innerHTML = '';
+
+      if (programs.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: 16px; border: 1px solid #e2e8f0;">
+            <h3 style="font-size: 1.3rem; color: #475569; margin-bottom: 0.5rem;">No se encontraron programas</h3>
+            <p style="color: #94a3b8;">Intenta con otros términos de búsqueda o cambia el filtro de facultad.</p>
+          </div>
+        `;
+        return;
+      }
+
+      programs.forEach(prog => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Ver información detallada de ${prog.title}`);
+        card.onclick = () => openDetail(prog.id);
+        card.onkeydown = event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openDetail(prog.id);
+          }
+        };
+
+        card.innerHTML = `
+          <div class="card-faculty">${prog.faculty}</div>
+          <div class="card-title">${prog.title}</div>
+          <div class="card-tags">
+            <span class="tag">${prog.semesters}</span>
+            <span class="tag">${prog.modality.split('/')[0]}</span>
+          </div>
+          <div class="card-price">${prog.price} <span>/ semestre</span></div>
+          <div class="card-summary">${prog.summary}</div>
+          <div class="card-footer">
+            <span>Ver información detallada</span>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterPrograms() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      const filtered = programData.filter(prog => {
+        const matchesFaculty = (currentFaculty === 'todas' || prog.faculty === currentFaculty);
+        const matchesSearch = prog.title.toLowerCase().includes(searchTerm) ||
+                              prog.summary.toLowerCase().includes(searchTerm) ||
+                              prog.faculty.toLowerCase().includes(searchTerm) ||
+                              prog.overview.toLowerCase().includes(searchTerm);
+        return matchesFaculty && matchesSearch;
+      });
+
+      renderCards(filtered);
+    }
+
+    function filterFaculty(faculty) {
+      currentFaculty = faculty;
+      
+      // Update active pill button UI
+      const pills = document.querySelectorAll('#facultyFilters .pill');
+      pills.forEach(pill => {
+        if (pill.dataset.faculty === faculty) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+
+      // Close detail view if open
+      closeDetail();
+      filterPrograms();
+    }
+
+    function openDetail(progId) {
+      const prog = programData.find(p => p.id === progId);
+      if (!prog) return;
+
+      document.getElementById('detFaculty').innerText = prog.faculty;
+      document.getElementById('detTitle').innerText = prog.title;
+      document.getElementById('detSub').innerText = `${prog.degree} • ${prog.snies}`;
+      document.getElementById('detPrice').innerText = `${prog.price} COP`;
+      document.getElementById('detDuration').innerText = prog.semesters;
+      document.getElementById('detModality').innerText = prog.modality;
+      document.getElementById('detDegree').innerText = prog.degree;
+      document.getElementById('detOverview').innerText = prog.overview;
+      document.getElementById('detPractices').innerText = prog.practices;
+
+      // Populate list items
+      const compUl = document.getElementById('detCompetencies');
+      compUl.innerHTML = prog.competencies.map(item => `<li>${item}</li>`).join('');
+
+      const advUl = document.getElementById('detAdvantages');
+      advUl.innerHTML = prog.advantages.map(item => `<li>${item}</li>`).join('');
+
+      // Hide Grid & Show Detail View
+      document.getElementById('programsGrid').style.display = 'none';
+      document.getElementById('detailView').style.display = 'block';
+      
+      // Scroll to top of detail view
+      window.scrollTo({ top: 150, behavior: 'smooth' });
+    }
+
+    function closeDetail() {
+      document.getElementById('detailView').style.display = 'none';
+      document.getElementById('programsGrid').style.display = 'grid';
+    }
+
+    // Initial render
+    renderCards(programData);
+  </script>
+</body>
+</html>
