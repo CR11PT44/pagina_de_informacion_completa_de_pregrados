@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oferta Académica de Pregrados - USB Bogotá</title>
+  <title>Oferta Académica de Pregrados y Tecnologías - USB Bogotá</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -111,6 +111,32 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.6rem;
+    }
+
+    .catalog-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .catalog-tab {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .catalog-tab:hover, .catalog-tab.active {
+      background: var(--brand-dark);
+      border-color: var(--brand-dark);
+      color: white;
     }
 
     .pill {
@@ -414,15 +440,20 @@
   <header>
     <div class="header-container">
       <span class="badge-top">Universidad de San Buenaventura - Sede Bogotá</span>
-      <h1>Guía Completa de Pregrados</h1>
-      <p>Explora la oferta académica oficial, precios de matrícula, semestres, modalidades, enfoques profesionales y opciones de práctica profesional.</p>
+      <h1>Guía de Pregrados y Tecnologías</h1>
+      <p>Explora la oferta académica, precios de matrícula, semestres, modalidades, enfoques profesionales y opciones de práctica profesional.</p>
     </div>
   </header>
 
   <div class="controls-container">
+    <div class="catalog-tabs" role="tablist" aria-label="Tipo de programa">
+      <button class="catalog-tab active" id="undergraduateTab" type="button" role="tab" aria-selected="true" onclick="switchCatalog('pregrados')">Pregrados profesionales</button>
+      <button class="catalog-tab" id="technologyTab" type="button" role="tab" aria-selected="false" onclick="switchCatalog('tecnologias')">Programas tecnológicos</button>
+    </div>
+
     <div class="search-box">
       <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      <input type="text" id="searchInput" placeholder="Buscar por nombre, palabra clave o área (ej. Inteligencia Artificial, Salud, Finanzas)..." onkeyup="filterPrograms()">
+      <input type="text" id="searchInput" placeholder="Buscar por nombre, palabra clave o área..." onkeyup="filterPrograms()">
     </div>
 
     <div class="filter-pills" id="facultyFilters">
@@ -437,6 +468,7 @@
 
   <main>
     <!-- Contenedor Principal con Tarjetas / Cubículos -->
+    <h2 id="catalogHeading" style="margin: 0 0 1rem; font-size: 1.5rem;">Pregrados profesionales</h2>
     <div class="grid" id="programsGrid">
       <!-- Generado dinámicamente con JavaScript -->
     </div>
@@ -905,7 +937,137 @@
       }
     ];
 
+    const technologyData = [
+      {
+        id: "tec-desarrollo-software",
+        title: "Tecnología en Desarrollo de Software",
+        faculty: "Ingeniería",
+        price: "$2.574.000",
+        semesters: "6 Semestres",
+        modality: "Presencial / Nocturna",
+        degree: "Tecnólogo(a) en Desarrollo de Software",
+        snies: "Registro Calificado Vigente",
+        summary: "Diseño, construcción, pruebas y mantenimiento de soluciones de software web, móviles y de escritorio.",
+        overview: "Forma tecnólogos capacitados en el diseño, construcción, pruebas y mantenimiento de soluciones de software web, móviles y de escritorio, orientados a impulsar la transformación digital en organizaciones mediante lenguajes de programación modernos y arquitecturas de software eficientes.",
+        competencies: [
+          "Desarrollo y programación de aplicaciones web y móviles responsivas.",
+          "Modelado, consulta y administración de bases de datos relacionales y NoSQL.",
+          "Implementación de metodologías ágiles de desarrollo de software (Scrum, Kanban).",
+          "Integración de APIs, servicios web y soluciones en la nube.",
+          "Control de versiones, pruebas de software y aseguramiento de calidad (QA)."
+        ],
+        practices: "Pasantías laborales en empresas de la industria TI, casas de desarrollo de software, departamentos de sistemas corporativos, startups tecnológicas o mediante el desarrollo de proyectos aplicados de innovación.",
+        advantages: [
+          "Cadena de formación y homologación directa hacia el programa profesional de Ingeniería de Sistemas.",
+          "Horarios nocturnos que facilitan alternar el estudio con el desarrollo de experiencia laboral en la industria.",
+          "Acceso a laboratorios de cómputo de alto rendimiento y licencias de software especializado."
+        ]
+      },
+      {
+        id: "tec-automatizacion-industrial",
+        title: "Tecnología en Automatización Industrial",
+        faculty: "Ingeniería",
+        price: "$2.574.000",
+        semesters: "6 Semestres",
+        modality: "Presencial / Nocturna",
+        degree: "Tecnólogo(a) en Automatización Industrial",
+        snies: "Registro Calificado Vigente",
+        summary: "Instrumentación, programación y mantenimiento de sistemas automatizados y electromecánicos para la Industria 4.0.",
+        overview: "Capacita profesionales en la instrumentación, operación, programación, inspección y mantenimiento de sistemas automatizados y electromecánicos en entornos fabriles de la Industria 4.0, garantizando la eficiencia operacional de las líneas de producción.",
+        competencies: [
+          "Programación y puesta en marcha de controladores lógicos programables (PLC) e interfaces HMI.",
+          "Selección, calibración e inspección de sensores, actuadores y sistemas neumático-hidráulicos.",
+          "Mantenimiento predictivo y correctivo de líneas de producción e instrumentación industrial.",
+          "Integración de redes de comunicación industrial (Profinet, Modbus, Ethernet/IP).",
+          "Supervisión de procesos mediante sistemas SCADA e integración de celdas automatizadas."
+        ],
+        practices: "Prácticas empresariales en plantas fabriles, industrias manufactureras, empresas de alimentos, embotelladoras, firmas integradoras de tecnología e instrumentación industrial.",
+        advantages: [
+          "Articulación y cadena de homologación hacia las carreras profesionales de Ingeniería Electrónica e Ingeniería Mecatrónica.",
+          "Formación práctica intensiva en laboratorios especializados de automatización y control industrial.",
+          "Horario nocturno diseñado para favorecer la vinculación laboral temprana en el sector industrial."
+        ]
+      },
+      {
+        id: "tec-produccion-audio",
+        title: "Tecnología en Producción de Audio para Medios Audiovisuales",
+        faculty: "Ingeniería",
+        price: "$2.574.000",
+        semesters: "6 Semestres",
+        modality: "Presencial / Nocturna",
+        degree: "Tecnólogo(a) en Producción de Audio para Medios Audiovisuales",
+        snies: "Registro Calificado Vigente",
+        summary: "Captura, edición, mezcla, sonorización, diseño sonoro y posproducción de audio para medios y entretenimiento digital.",
+        overview: "Forma especialistas en la captura de sonido directo, microfonía en set, edición, mezcla, sonorización, diseño sonoro y posproducción de audio para televisión, cine, radio, plataformas de streaming y videojuegos.",
+        competencies: [
+          "Captura de sonido directo y microfonía en sets de rodaje y producciones audiovisuales.",
+          "Edición, mezcla y posproducción de sonido estéreo, multicanal e inmersivo.",
+          "Creación de efectos de sonido foley, ambientes y diseño sonoro para medios interactivos.",
+          "Restauración sonora, ecualización y procesamiento de diálogos para cine y televisión.",
+          "Operación de estaciones de trabajo de audio digital (DAWs) y consolas en entornos de radiodifusión."
+        ],
+        practices: "Pasantías y proyectos de aplicación en estudios de posproducción audiovisual, canales de televisión, casas productoras de cine, emisoras de radio y proyectos del semillero de investigación «ESTARTE».",
+        advantages: [
+          "Cadena de homologación directa con el programa profesional de Ingeniería de Sonido.",
+          "Uso de estudios de grabación profesional, salas de mezcla e insonorización de nivel comercial.",
+          "Enfoque con alta demanda en el sector de las industrias creativas y del entretenimiento digital."
+        ]
+      },
+      {
+        id: "tec-contabilidad-finanzas",
+        title: "Tecnología en Contabilidad y Finanzas Internacionales",
+        faculty: "Ciencias Económicas y Administrativas",
+        price: "$2.574.000",
+        semesters: "6 Semestres",
+        modality: "Virtual (con opción flexible de cursar asignaturas presenciales)",
+        degree: "Tecnólogo(a) en Contabilidad y Finanzas Internacionales",
+        snies: "Registro Calificado Vigente",
+        summary: "Procesamiento y análisis de información contable, presupuestal y financiera bajo NIIF, con visión global.",
+        overview: "Forma técnicos superiores expertos en el procesamiento, análisis y soporte de información contable, presupuestal y financiera conforme a las Normas Internacionales de Información Financiera (NIIF), capacitados para apoyar la toma de decisiones en organizaciones con visión e inserción global.",
+        competencies: [
+          "Registro, conciliación y procesamiento de transacciones contables bajo estándares NIIF.",
+          "Análisis de estados financieros, liquidación de impuestos y costos operativos.",
+          "Manejo de software contable corporativo y herramientas informáticas de inteligencia financiera.",
+          "Apoyo en auditorías internas, control presupuestal y tesorería corporativa.",
+          "Asistencia en procesos de comercio exterior y operaciones financieras internacionales."
+        ],
+        practices: "Pasantías laborales en departamentos contables y financieros de empresas multinacionales, firmas de auditoría y consultoría, sector bancario, entidades públicas y PYMES.",
+        advantages: [
+          "Homologación 100% directa hacia el título profesional de Contaduría Pública en la universidad.",
+          "Modalidad virtual flexible que permite estudiar desde cualquier lugar y alternar con la jornada laboral.",
+          "Plan académico alineado a las exigencias globales del mercado tributario y financiero."
+        ]
+      }
+    ];
+
+    let currentCatalog = 'pregrados';
     let currentFaculty = 'todas';
+
+    function getActivePrograms() {
+      return currentCatalog === 'tecnologias' ? technologyData : programData;
+    }
+
+    function switchCatalog(catalog) {
+      currentCatalog = catalog;
+      currentFaculty = 'todas';
+      closeDetail();
+
+      const isTechnology = catalog === 'tecnologias';
+      document.getElementById('undergraduateTab').classList.toggle('active', !isTechnology);
+      document.getElementById('undergraduateTab').setAttribute('aria-selected', String(!isTechnology));
+      document.getElementById('technologyTab').classList.toggle('active', isTechnology);
+      document.getElementById('technologyTab').setAttribute('aria-selected', String(isTechnology));
+      document.getElementById('catalogHeading').innerText = isTechnology ? 'Programas tecnológicos' : 'Pregrados profesionales';
+
+      const availableFaculties = new Set(getActivePrograms().map(program => program.faculty));
+      document.querySelectorAll('#facultyFilters .pill[data-faculty]').forEach(pill => {
+        const faculty = pill.dataset.faculty;
+        pill.hidden = faculty !== 'todas' && !availableFaculties.has(faculty);
+        pill.classList.toggle('active', faculty === 'todas');
+      });
+
+      filterPrograms();
+    }
 
     function renderCards(programs) {
       const grid = document.getElementById('programsGrid');
@@ -956,12 +1118,20 @@
     function filterPrograms() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       
-      const filtered = programData.filter(prog => {
+      const filtered = getActivePrograms().filter(prog => {
         const matchesFaculty = (currentFaculty === 'todas' || prog.faculty === currentFaculty);
-        const matchesSearch = prog.title.toLowerCase().includes(searchTerm) ||
-                              prog.summary.toLowerCase().includes(searchTerm) ||
-                              prog.faculty.toLowerCase().includes(searchTerm) ||
-                              prog.overview.toLowerCase().includes(searchTerm);
+        const searchableContent = [
+          prog.title,
+          prog.summary,
+          prog.faculty,
+          prog.overview,
+          prog.degree,
+          prog.modality,
+          ...prog.competencies,
+          prog.practices,
+          ...prog.advantages
+        ].join(' ').toLowerCase();
+        const matchesSearch = searchableContent.includes(searchTerm);
         return matchesFaculty && matchesSearch;
       });
 
@@ -987,7 +1157,7 @@
     }
 
     function openDetail(progId) {
-      const prog = programData.find(p => p.id === progId);
+      const prog = getActivePrograms().find(p => p.id === progId);
       if (!prog) return;
 
       document.getElementById('detFaculty').innerText = prog.faculty;
@@ -1021,7 +1191,7 @@
     }
 
     // Initial render
-    renderCards(programData);
+    switchCatalog('pregrados');
   </script>
 </body>
 </html>
